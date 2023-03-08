@@ -1,12 +1,14 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body, Delete, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Delete, Param, UseGuards } from '@nestjs/common';
 import { UserRepositorysService } from './users.repository.service';
 import { hash } from 'bcrypt';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
 
     constructor(private readonly usersService: UserRepositorysService) { }
+    @UseGuards(JwtAuthGuard)
     @Get()
     async getAllUsers() {
         return await this.usersService.findAll()

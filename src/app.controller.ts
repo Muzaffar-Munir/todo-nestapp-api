@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Request, UseGuards  } from '@nestjs/common';
+import { Controller, Get, Post, Request, UseGuards, Version  } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
@@ -21,6 +21,7 @@ export class AppController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Version('1')
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;

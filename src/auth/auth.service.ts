@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import { UserRepositorysService } from 'src/users/users.repository.service';
+import { UserRepositorysService } from 'src/modules/users/users.repository.service';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 
@@ -14,7 +14,7 @@ export class AuthService {
 
     async validateUser(username: string, pass: string): Promise<any> {
       const user = await this.usersService.getUser({username});
-      const isPasswordValid = await compare(pass, user.password);
+      const isPasswordValid = await compare(pass, user?.password);
       
       if (user && isPasswordValid) {
         return user;

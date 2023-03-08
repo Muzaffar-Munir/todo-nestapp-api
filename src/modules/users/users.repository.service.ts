@@ -1,22 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User, UserDocument } from 'src/schemas/users.schema';
+import { User, UserDocument } from 'src/modules/users/users.schema';
 
 @Injectable()
 export class UserRepositorysService {
-  private readonly users = [
-    {
-      userId: 1,
-      username: 'ali@gmail.com',
-      password: 'ali',
-    },
-    {
-      userId: 2,
-      username: 'maria',
-      password: 'guess',
-    },
-  ];
+  // private readonly users = [
+  //   {
+  //     userId: 1,
+  //     username: 'ali@gmail.com',
+  //     password: 'ali',
+  //   },
+  //   {
+  //     userId: 2,
+  //     username: 'maria',
+  //     password: 'guess',
+  //   },
+  // ];
   constructor(
     @InjectModel(User.name) private readonly model: Model<UserDocument>,
   ) {}
@@ -49,7 +49,7 @@ export class UserRepositorysService {
     return this.model.findOne(query);
   }
 
-  async findOne(username: string): Promise<User | undefined> {
-    return this.users.find((user) => user.username === username);
-  }
+  // async findOne(username: string): Promise<User | undefined> {
+  //   return this.users.find((user) => user.username === username);
+  // }
 }
