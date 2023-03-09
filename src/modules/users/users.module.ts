@@ -2,21 +2,14 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/modules/users/users.schema';
 import { UsersController } from './users.controller';
-import { UserRepositorysService } from './users.repository.service';
-import { PassportModule } from '@nestjs/passport';
-// import { JwtModule } from '@nestjs/jwt';
+import { UserService } from './users.service';
 
 @Module({
   controllers: [UsersController],
-  providers: [UserRepositorysService],
+  providers: [UserService],
   imports: [
-    // PassportModule,
-    // JwtModule.register({
-    //   secret: 'secretKey',
-    //   signOptions: { expiresIn: '60s' },
-    // }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
-  exports: [UserRepositorysService],
+  exports: [UserService],
 })
 export class UsersModule {}

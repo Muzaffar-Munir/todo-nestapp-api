@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import { UserRepositorysService } from 'src/modules/users/users.repository.service';
+import { UserService } from 'src/modules/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 
@@ -8,7 +8,7 @@ import { compare } from 'bcrypt';
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UserRepositorysService, 
+    private usersService: UserService, 
     private jwtService: JwtService
     ) {}
 

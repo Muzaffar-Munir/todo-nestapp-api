@@ -1,22 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User, UserDocument } from 'src/modules/users/users.schema';
+import { CreateUserDto } from './dtos/createUser.dto';
+import { User, UserDocument } from './users.schema';
 
 @Injectable()
-export class UserRepositorysService {
-  // private readonly users = [
-  //   {
-  //     userId: 1,
-  //     username: 'ali@gmail.com',
-  //     password: 'ali',
-  //   },
-  //   {
-  //     userId: 2,
-  //     username: 'maria',
-  //     password: 'guess',
-  //   },
-  // ];
+export class UserService {
   constructor(
     @InjectModel(User.name) private readonly model: Model<UserDocument>,
   ) {}
@@ -29,13 +18,17 @@ export class UserRepositorysService {
   //   return await this.model.findById(id).exec();
   // }
 
-  async createUser(payloads: any): Promise<any> {
-    const createdUser = await new this.model({
-      ...payloads,
-      createdAt: new Date(),
-    }).save();
+  async createUser(payloads: CreateUserDto): Promise<CreateUserDto> {
+    // const createdUser = await new this.model({
+    //   payloads,
+    //   createdAt: new Date(),
+    // }).save();
 
-    return createdUser;
+    // return createdUser;
+    // console.log(payloads);
+    // return await this.model.create(payloads);
+    const createdCat = new this.model(payloads);
+    return createdCat.save();
   }
 
   async update(id: string, payloads: any): Promise<any> {
