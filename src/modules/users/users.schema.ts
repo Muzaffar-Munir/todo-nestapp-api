@@ -3,9 +3,15 @@ import { Document } from 'mongoose';
 export type UserDocument = User & Document;
 @Schema()
 export class User {
-  @Prop()
+  @Prop({
+    required: true,
+    unique: true,
+  })
   name: string;
-  @Prop()
+  @Prop({
+    required: true,
+    unique: true,
+  })
   email: string;
   @Prop()
   age: number;

@@ -1,12 +1,14 @@
 /* eslint-disable prettier/prettier */
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsNumber, isNumber, IsOptional, IsString } from 'class-validator';
 export class CreateUserDto {
+ @IsString()
   @IsNotEmpty()
-  name: string;
+ public readonly name:string;
 
   @IsNotEmpty()
   email: string;
   @IsNotEmpty()
+  @IsNumber()
   age: number;
   @IsNotEmpty()
   password: string;
