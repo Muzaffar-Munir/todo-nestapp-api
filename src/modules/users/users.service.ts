@@ -18,18 +18,14 @@ export class UserService {
     return await this.model.find().exec();
   }
 
-  // async findOne(id: string): Promise<any> {
-  //   return await this.model.findById(id).exec();
-  // }
-
   async createUser(body: CreateUserDto) :Promise<CreateUserDto>{
    const hashPassword = await hash(body.password, 10);
    try {
     const user =  await this.model.create({...body,
-    role: ERoles.DOCTOR,
-    createdAt: new Date(),
-    password: hashPassword,
-    });
+      role: ERoles.DOCTOR,
+      createdAt: new Date(),
+      password: hashPassword,
+      });
     return user;
    } catch(error){
     throw new BadRequestException({ status: HttpStatus.BAD_REQUEST, description: 'Something went wrong!' })
@@ -47,8 +43,4 @@ export class UserService {
   async getUser(query: object): Promise<User | any> {
     return this.model.findOne(query);
   }
-
-  // async findOne(username: string): Promise<User | undefined> {
-  //   return this.users.find((user) => user.username === username);
-  // }
 }

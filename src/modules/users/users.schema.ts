@@ -5,7 +5,6 @@ export type UserDocument = User & Document;
 export class User {
   @Prop({
     required: true,
-    unique: true,
   })
   name: string;
   @Prop({
@@ -15,10 +14,16 @@ export class User {
   email: string;
   @Prop()
   age: number;
-  @Prop()
+  @Prop({ required: true, trim: true })
   password: string;
+
+  @Prop({ required: true })
   role: string;
+  @Prop({ default: false })
   isActive?: boolean;
+  @Prop({ default: false })
+  isVerified?: boolean;
+  @Prop({ default: Date.now() })
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;

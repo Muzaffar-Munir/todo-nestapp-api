@@ -1,27 +1,31 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body, Delete, Param, UseGuards, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Delete, Param, UseGuards,Req } from '@nestjs/common';
 import { UserService } from './users.service';
 
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { CreateUserDto } from './user.dto';
 
-@Controller('users')
+import { CreateUserDto } from './user.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+
+@Controller('user')
 export class UsersController {
 
-    constructor(private readonly usersService: UserService) { }
+    constructor(private readonly userService: UserService) { }
+   
+    @Get('current')
     @UseGuards(JwtAuthGuard)
-    @Get()
-    async getAllUsers() {
-        return await this.usersService.findAll()
+    async getLoginUser(@Req() req) {
+        return await this.userService.getUser({_id: req.user._id});
     }
 
     @Post()
     create(@Body() body: CreateUserDto) {
-     return this.usersService.createUser(body);
+     return this.userService.createUser(body);
     }
 
+    
     @Delete(':id')
+    @UseGuards(JwtAuthGuard)
     async deleteUser(@Param('id') id: string) {
-        return await this.usersService.delete(id);
+        return await this.userService.delete(id);
     }
 }
