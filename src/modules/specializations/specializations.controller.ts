@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { ERoles } from 'src/common/enum/role';
 import { Roles } from 'src/role-guard/roles.decorator';
 import { RolesGuard } from 'src/role-guard/roles.guard';
@@ -21,5 +30,20 @@ export class SpecializationsController {
   @Roles(ERoles.ADMIN)
   createSpecialization(@Body() body: CreateSpecializationDto) {
     return this.specializationService.createSpecialization(body);
+  }
+
+  @Put(':id')
+  @Roles(ERoles.ADMIN)
+  updateSpecailization(
+    @Param('id') id: string,
+    @Body() body: CreateSpecializationDto,
+  ) {
+    return this.specializationService.updateASpeciality(id, body);
+  }
+
+  @Delete(':id')
+  @Roles(ERoles.ADMIN)
+  deleteSpecailization(@Param('id') id: string) {
+    return this.specializationService.deleteSpeciality(id);
   }
 }

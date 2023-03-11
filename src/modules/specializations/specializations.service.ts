@@ -26,12 +26,25 @@ export class SpecializationService {
 
     }
 
-    async updateASpeciality(id: string, payloads: any): Promise<any> {
-        return await this.model.findByIdAndUpdate(id, payloads).exec();
+    async updateASpeciality(id: string, body: CreateSpecializationDto): Promise<CreateSpecializationDto> {
+        try {
+            await this.model.findByIdAndUpdate(id,{
+                ...body,
+                updatedAt: new Date(),
+            }).exec();
+            return await this.model.findById(id).exec();
+        } catch (error) {
+            throw new BadRequestException({ status: HttpStatus.BAD_REQUEST, description: 'Something went wrong!' })
+        }
     }
 
     async deleteSpeciality(id: string): Promise<any> {
-        return await this.model.findByIdAndDelete(id).exec();
+        try {
+            await this.model.findByIdAndDelete(id, {deletedAt: new Date()}).exec();
+            return {success: true, message: 'category is deleted'};
+        } catch (error) {
+            throw new BadRequestException({ status: HttpStatus.BAD_REQUEST, description: 'Something went wrong!' })
+        } 
     }
     async getASpeciality(query: object): Promise<any> {
         return this.model.findOne(query);

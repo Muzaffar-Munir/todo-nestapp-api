@@ -15,6 +15,7 @@ export class Specialization {
   price: number;
   @Prop({ default: Date.now() })
   createdAt: Date;
+  @Prop()
   updatedAt: Date;
   deletedAt: Date;
 }
