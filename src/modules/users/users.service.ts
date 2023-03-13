@@ -43,4 +43,10 @@ export class UserService {
   async getUser(query: object): Promise<User | any> {
     return this.model.findOne(query);
   }
+
+  async markEmailAsConfirmed(email: string) {
+    return this.model.updateOne({ email }, {
+      isVerified: true
+    }).exec();
+  }
 }
