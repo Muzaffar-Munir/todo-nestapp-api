@@ -4,7 +4,7 @@ import { User, UserSchema } from 'src/modules/users/users.schema';
 import { UsersController } from './users.controller';
 import { UserService } from './users.service';
 import { EmailConfirmationService } from './email-confirmation.service';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from '../auth/constants';
 import { MailerModule } from '@nestjs-modules/mailer';
@@ -18,23 +18,22 @@ import { MailerModule } from '@nestjs-modules/mailer';
       signOptions: { expiresIn: '1d' },
     }),
     ConfigModule,
-    MailerModule.forRoot({
-      transport: {
-        // host: 'smtp.sendgrid.net',
-        // port: 587,
-        // auth: {
-        //   user: 'zNo3hZ7GRA6GyGisHGUzuw',
-        //   pass: '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',
-        // },
-        host: 'sandbox.smtp.mailtrap.io',
-        port: 2525,
-        auth: {
-          user: '26e01072159078',
-          pass: '7d9c181a9974f4',
+    MailerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => ({
+        transport: {
+          host: config.get<string>('EMAIL_HOST'),
+          port: config.get<number>('EMAIL_PORT'),
+          auth: {
+            user: config.get<string>('EMAIL_API_KEY'),
+            pass: config.get<string>('EMAIL_SECRET_KEY'),
+          },
         },
-      },
+      }),
     }),
+
   ],
   exports: [UserService],
 })
-export class UsersModule {}
+export class UsersModule { }
