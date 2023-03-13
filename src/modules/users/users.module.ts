@@ -32,8 +32,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
         },
       }),
     }),
-
   ],
   exports: [UserService],
 })
-export class UsersModule { }
+export class UsersModule {}
