@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Transform } from 'class-transformer';
 import { IsNumber, IsOptional } from 'class-validator';
 import { toNumber } from 'lodash';

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 export interface IPaginatedResponse {
   success: boolean;
   statusCode: number;

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Strategy } from 'passport-local';
 import { PassportStrategy } from '@nestjs/passport';
 import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';

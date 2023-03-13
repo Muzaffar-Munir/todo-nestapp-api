@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { UserService } from 'src/modules/users/users.service';
 import { JwtService } from '@nestjs/jwt';
